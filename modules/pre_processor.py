@@ -15,42 +15,6 @@ sys.stdout = stdout
 sys.setdefaultencoding('utf-8')
 
 
-def preprocessor(raw, cursor):
-    count = 0
-    processed = []
-    x = []
-    for item in raw:
-        line = item[1]
-
-        tmp = u' '.join(unicode(line))
-
-        try:
-            tmp.encode()
-            processed.append([item[0], item[1], tmp])
-            x.append(tmp)
-        except:
-            count += 1
-            pass
-
-    # corpus in domain data set
-    cursor.execute("select * from geokg;")
-    while True:
-        data = cursor.fetchone()
-        if data is None:
-            break
-        tmp = ''.join(data)
-        tmp = u' '.join(unicode(tmp))
-        x.append(tmp)
-
-    model = Word2Vec(x, size=10, window=5, min_count=5, workers=4)
-    model.save('./modules/models/vectorizer.model')
-
-    # bigram_transformer = gensim.models.Phrases(sentences)
-    # model = Word2Vec(bigram_transformer[sentences], size=100, ...)
-
-    return processed
-
-
 """
     doc_stats
     Purpose:
