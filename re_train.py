@@ -119,7 +119,7 @@ def crf_retrain():
 
 
 """
-    ntegrator_retrain
+    itegrator_retrain
     Purpose:
         Train the stacking integrator using AL feedback
     Parameters:
